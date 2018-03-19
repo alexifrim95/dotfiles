@@ -1,70 +1,71 @@
-" set the runtime path to include Vundle and initialize
-set rtp+=~/HOME/.vim/bundle/vundle
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 
-" let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
-Plugin 'git://git.wincent.com/command-t.git'
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'nvie/vim-flake8'
 Plugin 'jnurmine/Zenburn'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
-Plugin 'majutsushi/tagbar'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+call vundle#end()
 
-let g:ale_sign_column_always = 1
 autocmd vimenter * NERDTree
-highlight BadWhitespace ctermbg=red guibg=red
-set encoding=utf-8
-" Enable folding
-set foldmethod=indent
-set foldlevel=99
-set number relativenumber
-" Enable folding with the spacebar
-nnoremap <space> za
-" PEP8 standard
-au BufNewFile,BufRead *.py set tabstop=4
-"   \ set softtabstop=4
-"   \ set shiftwidth=4
-"   \ set textwidth=79
-"   \ set expandtab
-"   \ set autoindent
-"   \ set fileformat=unix
-
-let python_highlight_all=1
-syntax on
-" Full stack development
-au BufNewFile,BufRead *.js, *.html, *.css set tabstop=2 
+autocmd BufNewFile,BufRead *.py	set tabstop=4 
+autocmd BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+autocmd BufNewFile,BufRead *.js,*.html,*.css set tabstop=2 
     \ set softtabstop=2 
     \ set shiftwidth=2
-set backspace=indent,eol,start  " backspace over everything
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
-colorscheme desert
-nmap <F12> :NERDTreeToggle<CR>
+
+filetype plugin indent on
+
+let g:ale_sign_column_always = 1
+let s:is_windows = has('win32') || has('win64')
+let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeShowBookmarks=1
+let python_highlight_all=1
+
+highlight Search guibg=Red
+highlight BadWhitespace ctermbg=red guibg=red
+
+
+" Split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+" Folding with <space> key
+nnoremap <space> za
+" Open tree with <F12> key
+nnoremap <F12> :NERDTreeToggle<CR>
+
+set belloff=all
+set encoding=utf-8
+set foldmethod=indent	" Enable folding
+set foldlevel=99
+set number relativenumber
 set guifont=Consolas:h14
 set hlsearch
-hi Search guibg=Red
-let NERDTreeIgnore = ['\.pyc$']
-"let NERDTreeShowBookmarks=1
-cd ~
-set belloff=all
+set backspace=indent,eol,start	" Backspace over everything
+set rtp+=~/.vim/bundle/powerline/build/lib/powerline/bindings/vim
+set laststatus=2
+set t_Co=256
+
+source ~/.vim/bundle/vim-flake8/ftplugin/python_flake8.vim
+syntax on
+
+if s:is_windows
+	cd D:\
+	set background=dark
+	colorscheme solarized
+else
+	cd ~
+	colorscheme zenburn
+endif
+
