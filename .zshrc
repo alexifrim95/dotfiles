@@ -1,34 +1,47 @@
 export ZSH=$HOME/.oh-my-zsh
+ZSH_THEME="spaceship"
 
-SH_THEME="powerlevel9k/powerlevel9k"
+SPACESHIP_PROMPT_ORDER=(dir git venv exec_time line_sep jobs char)
+SPACESHIP_VENV_SYMBOL=🐍·
+SPACESHIP_VENV_COLOR=yellow
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv context dir dir_writable vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs time)
+export PATH="/usr/local/git/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:$PATH"
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+export VIRTUALENVWRAPPER_PYTHON="/usr/bin/python"
 
-POWERLEVEL9K_TIME_BACKGROUND='255'
-POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
-POWERLEVEL9K_SHOW_CHANGESET=true
-POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND="015"
-POWERLEVEL9K_STATUS_VERBOSE=false
-POWERLEVEL9K_STATUS_OK_IN_NON_VERBOSE=true
-POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND='black'
-POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND='245'
-POWERLEVEL9K_VIRTUALENV_BACKGROUND='cyan'
-POWERLEVEL9K_VIRTUALENV_FOREGROUND='black'
-POWERLEVEL9K_SHOW_CHANGESET=false
+plugins=(git sudo colorize zsh-autosuggestions zsh-syntax-highlighting git-extras virtualenvwrapper django heroku jira)
 
-plugins=(git sudo colorize zsh-syntax-highlighting)
+alias gac="git add . && git commit"
+alias gmu="git fetch upstream && git merge upstream/master"
+alias gru="git pull -r upstream master"
+alias gpo="git push --set-upstream origin \`git symbolic-ref --short HEAD\`"
+alias gbd="git branch -D "
+alias gpf="git push --force-with-lease"
+alias gd="git diff --minimal -w HEAD | cdiff -s -w 100"
+alias f8="ls -1 -d */ | xargs -n 2 -P 8 flake8 -j 1"
+alias is="find . -name \"*.py\" -not -name appfiles | xargs -n 400 -P 8 isort -q"
+alias tt="py.test -s"
+alias es="cd ../elasticsearch/bin; ./elasticsearch"
+alias vim="nvim"
+alias vi="nvim"
+
+# DATABASE ALIASES
+# list all current dbs
+alias listdb="psql -c 'select datname from pg_database where datistemplate=false;'"
+export DATABASE_URL=postgresql://`whoami`@localhost:5432/`whoami`
+bindkey "^R" history-incremental-pattern-search-backward
 
 source $ZSH/oh-my-zsh.sh
 
-# export MANPATH="/usr/local/man:$MANPATH"
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
 DEFAULT_USER=`whoami`
-export WORKON_HOME=~/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
 
+# --files: List files that would be searched but do not search
+# --no-ignore: Do not respect .gitignore, etc...
+# --hidden: Search hidden files and folders
+# --follow: Follow symlinks
+# --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!{.git,.cache}/*"'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
