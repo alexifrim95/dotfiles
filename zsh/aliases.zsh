@@ -1,0 +1,16 @@
+alias wb="cd $HOME/BetterWorks"
+alias gac="git add . && git commit"
+alias gmu="git fetch upstream && git merge upstream/master"
+alias gru="git pull -r upstream master"
+alias gpo="git push --set-upstream origin \`git symbolic-ref --short HEAD\`"
+alias gbd="git branch -D "
+alias gpf="git push --force-with-lease"
+alias gd="git diff --minimal -w HEAD | cdiff -s -w 100"
+alias f8="ls -1 -d */ | xargs -n 2 -P 8 flake8 -j 1"
+alias is="find . -name \"*.py\" -not -name appfiles | xargs -n 400 -P 8 isort -q"
+alias tt="py.test -s"
+# Elasticsearch shortcut
+alias es="wb; cd ../elasticsearch/bin; ./elasticsearch"
+alias vim="nvim"
+alias vi="nvim"
+alias reload='source ~/.zshrc'
