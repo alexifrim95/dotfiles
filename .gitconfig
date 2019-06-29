@@ -1,0 +1,13 @@
+[user]
+	name = Alex Ifrim
+	email = alexifrim95@gmail.com
+[core]
+    editor = vim
+	excludesfile = ~/.gitignore
+[color]
+    ui = auto
+    interactive = auto
+[help]
+	autocorrect = 1
+[pull]
+    rebase = true
