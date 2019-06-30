@@ -10,7 +10,7 @@ SPACESHIP_VENV_COLOR=yellow
 SPACESHIP_PROMPT_SEPARATE_LINE=true
 
 declare -u config_files
-config_files=DOTFILES/zsh/*.zsh
+config_files=($DOTFILES/zsh/*.zsh)
 for file in ${config_files}
 do
     source $file
