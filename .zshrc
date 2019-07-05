@@ -4,7 +4,9 @@ DEFAULT_USER=`whoami`
 
 ZSH_THEME="spaceship"
 
-SPACESHIP_PROMPT_ORDER=(dir git venv exec_time line_sep battery jobs char)
+SPACESHIP_PROMPT_ORDER=(
+    dir git venv exec_time line_sep battery jobs vi_mode char
+)
 SPACESHIP_VENV_SYMBOL=🐍·
 SPACESHIP_VENV_COLOR=yellow
 SPACESHIP_PROMPT_SEPARATE_LINE=true
@@ -17,8 +19,8 @@ do
 done
 
 plugins=(
-    git sudo colorize zsh-autosuggestions zsh-syntax-highlighting
-    git-extras virtualenvwrapper django heroku jira
+    git colorize zsh-autosuggestions zsh-syntax-highlighting
+    git-extras virtualenvwrapper django heroku jira vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
