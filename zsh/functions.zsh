@@ -5,3 +5,7 @@ setdb() {
 listdb() {
     psql -c 'select datname from pg_database where datistemplate=false;'
 }
+
+getdb() {
+    echo $DATABASE_URL
+}
