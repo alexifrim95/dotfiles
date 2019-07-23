@@ -3,9 +3,14 @@ setdb() {
 }
 
 listdb() {
-    psql -c 'select datname from pg_database where datistemplate=false;'
+    psql -c 'SELECT datname FROM pg_database WHERE datistemplate=false;'
 }
 
 getdb() {
     echo $DATABASE_URL
+}
+
+truncate() {
+    getdb
+    psql -c 'TRUNCATE TABLE '$1' CASCADE;'
 }
