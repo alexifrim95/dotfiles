@@ -6,6 +6,7 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/opt/gnupg@1.4/libexec/gpgbin:$PATH"
 
 export DATABASE_URL=postgresql://`whoami`@localhost:5432/`whoami`
 export BROKER_URL=amqp://guest:guest@localhost:5672//
